@@ -1,0 +1,37 @@
+{
+	"items": [
+		{
+			"id": "NDFkM2E5NmQtZmM4OS00YWU5LWI2YTctMzMzOTQ0YTk1YTY5OjU2OTUx",
+			"link": "https://app.fieldcontrol.com.br/relacionamento-cliente/#/relatorio/41d3a96d-fc89-4ae9-b6a7-333944a95a69",
+			"archived": false,
+			"identifier": "8468",
+			"description": null,
+			"createdAt": "2023-08-29T22:57:57Z",
+			"updatedAt": "2023-08-30T18:32:35Z",
+			"customer": {
+				"id": "MzM4OTQxNzo1Njk1MQ=="
+			},
+			"service": {
+				"id": "MTM4Mzc2OjU2OTUx"
+			},
+			"address": {
+				"zipCode": "80730350",
+				"street": "Rua Marechal José Bernardino Bormann",
+				"number": "1526",
+				"neighborhood": "Bigorrilho",
+				"complement": "ap 902",
+				"city": "Curitiba",
+				"state": "Paraná",
+				"coords": {
+					"latitude": -25.432381,
+					"longitude": -49.300087
+				}
+			},
+			"ticket": null,
+			"location": {
+				"id": "ZWQzYThkNTQtMDVlZi00MDQ1LWIzZjAtNmZlNTkzZTc3OGFkOjU2OTUx"
+			}
+		}
+	],
+	"totalCount": 1
+}
