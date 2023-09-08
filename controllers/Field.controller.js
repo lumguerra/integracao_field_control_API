@@ -32,29 +32,19 @@ async function handleFieldApis(identifier) {
         return null
     }
 
+
+
     const task = await util.getTask(id);
     const employeeId = task?.employee?.id
     const employee = await util.getEmployee(employeeId);
+    const parsedDataArray = [];
 
-    const formAquecedor = await util.buildFormsData(forms, 'Formulário Aquecedor');
+    for (const f of forms?.items || []) {
+        const formData = await util.buildFormsData(forms, f.name);
+        const details = await getFormById(id, formData.id);
+        const parsed = questionController.parseQuestionForm(details);
+        parsedDataArray.push({ ...parsed }); // Substitua 'additionalField' pelo nome do campo que deseja adicionar.
 
-    if (formAquecedor) {
-        formAquecedorDetails = await getFormById(id, formAquecedor.id)
-        infoAquecedor = questionController.parseQuestionForm(formAquecedorDetails);
-    }
-
-    const formPgto = await util.buildFormsData(forms, "Forma de Pgto");
-
-    if(formPgto) {
-        formPgtoDetails = await getFormById(id, formPgto.id);
-        infoPgto = questionController.parseQuestionForm(formPgtoDetails);
-    }
-
-    const formDiagnInter = await util.buildFormsData(forms, "Diagnóstico (Interno)");
-    
-    if(formDiagnInter){
-        formDiagnosticoInternoDetails = await getFormById(id, formDiagnInter.id);
-        infoDiagnosticoInterno = questionController.parseQuestionForm(formDiagnosticoInternoDetails);
     }
 
 
@@ -66,11 +56,18 @@ async function handleFieldApis(identifier) {
         colaborador: employee,
         status: task.status,
         descricao: order?.description || '',
-        infoAquecedor,
-        infoPgto,
-        infoDiagnosticoInterno
+        relatorio: parsedDataArray
     }
-    return responseObj;
+
+    const finalObj = cleanUnusedFields(responseObj)
+    return finalObj;
+}
+
+
+function cleanUnusedFields(objResponse) {
+    const unwantedKeys = ['Lembrete', 'Foto Inicio Atividade'];
+    objResponse.relatorio = objResponse.relatorio.filter(question => !unwantedKeys.includes(question.name));
+    return objResponse;
 }
 
 
